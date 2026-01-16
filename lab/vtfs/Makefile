@@ -1,12 +1,11 @@
-obj-m += source/vtfs.o 
+obj-m += vtfs.o
 
-PWD := $(CURDIR) 
-KDIR = /lib/modules/`uname -r`/build
-EXTRA_CFLAGS = -Wall -g
+PWD := $(CURDIR)
+
+vtfs-objs := super.o vtfs_file.o vtfs_inode.o vtfs_dir.o
 
 all:
-	make -C $(KDIR) M=$(PWD) modules 
+	$(MAKE) -C /lib/modules/$(shell uname -r)/build M=$(PWD) modules
 
 clean:
-	make -C $(KDIR) M=$(PWD) clean
-	rm -rf .cache
+	$(MAKE) -C /lib/modules/$(shell uname -r)/build M=$(PWD) clean
